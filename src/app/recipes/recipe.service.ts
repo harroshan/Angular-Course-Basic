@@ -10,6 +10,7 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 export class RecipeService{
     // recipeSelected = new EventEmitter<Recipe>();
     recipeSelected = new Subject<Recipe>();
+    recipeChanged = new Subject<Recipe[]>();
 
     constructor(private shoppingService: ShoppingListService){}
 
@@ -34,6 +35,21 @@ export class RecipeService{
 
     addToShoppingList(ingredients: Ingredient[]){
         this.shoppingService.addIngredients(ingredients);
+    }
+
+    addRecipe(recipe: Recipe){
+        this.recipes.push(recipe);
+        this.recipeChanged.next(this.recipes.slice());
+    }
+
+    updateRecipe(index: number, newRecipe: Recipe){
+        this.recipes[index] = newRecipe;
+        this.recipeChanged.next(this.recipes.slice());
+    }
+
+    deleteRecipe(index: number){
+        this.recipes.splice(index,1);
+        this.recipeChanged.next(this.recipes.slice());
     }
 
 }
