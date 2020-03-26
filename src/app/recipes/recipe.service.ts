@@ -14,16 +14,18 @@ export class RecipeService{
 
     constructor(private shoppingService: ShoppingListService){}
 
-    private recipes: Recipe[] = [
-        new Recipe('Testing Recipe', 
-        'Description for testing recipe', 
-        'https://hips.hearstapps.com/delish/assets/17/37/1505333248-goulash-delish-1.jpg',
-        [new Ingredient('Meat', 1), new Ingredient('Fries',10)]),
-        new Recipe('Another Testing Recipe', 
-        'Description for testing recipe', 
-        'https://hips.hearstapps.com/delish/assets/17/37/1505333248-goulash-delish-1.jpg',
-        [new Ingredient('Buns', 1), new Ingredient('Fries',10)])
-    ];
+    // private recipes: Recipe[] = [
+    //     new Recipe('Testing Recipe', 
+    //     'Description for testing recipe', 
+    //     'https://hips.hearstapps.com/delish/assets/17/37/1505333248-goulash-delish-1.jpg',
+    //     [new Ingredient('Meat', 1), new Ingredient('Fries',10)]),
+    //     new Recipe('Another Testing Recipe', 
+    //     'Description for testing recipe', 
+    //     'https://hips.hearstapps.com/delish/assets/17/37/1505333248-goulash-delish-1.jpg',
+    //     [new Ingredient('Buns', 1), new Ingredient('Fries',10)])
+    // ];
+
+    private recipes: Recipe[] = [];
 
     getRecipes(){
         return this.recipes.slice();
@@ -49,6 +51,11 @@ export class RecipeService{
 
     deleteRecipe(index: number){
         this.recipes.splice(index,1);
+        this.recipeChanged.next(this.recipes.slice());
+    }
+
+    setRecipes(recipes: Recipe[]){
+        this.recipes = recipes;
         this.recipeChanged.next(this.recipes.slice());
     }
 
