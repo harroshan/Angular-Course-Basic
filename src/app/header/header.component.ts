@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
     templateUrl: 'header.component.html'
 })
 export class HeaderComponent implements OnInit, OnDestroy{
-    // collapsed=true;
+    collapsed=true;
     // @Output() featureSelected = new EventEmitter<string>();
 
     // onSelect(feature: string){
