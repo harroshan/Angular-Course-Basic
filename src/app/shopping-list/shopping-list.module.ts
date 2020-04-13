@@ -15,7 +15,7 @@ const routes: Routes = [
         ShoppingListComponent,
         ShoppingEditComponent,
     ],
-    imports: [RouterModule.forChild(routes), SharedModule, FormsModule]
+    imports: [RouterModule.forChild(routes), SharedModule, FormsModule, CommonModule]
 })
 export class ShoppingListModule{
 

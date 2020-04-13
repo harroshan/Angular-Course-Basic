@@ -66,7 +66,7 @@ export class AuthComponent implements OnDestroy {
         const compRef= hostViewContainerRef.createComponent(alertCmpFactory);
 
         compRef.instance.message = this.error;
-        this,this.closeSub = compRef.instance.close.subscribe(() => {
+        this.closeSub = compRef.instance.close.subscribe(() => {
             this.closeSub.unsubscribe();
             hostViewContainerRef.clear();
         });
