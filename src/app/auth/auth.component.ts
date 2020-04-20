@@ -17,6 +17,7 @@ export class AuthComponent implements OnInit,OnDestroy {
 
     @ViewChild(PlaceHolderDirective, {static: false}) alertHost: PlaceHolderDirective;
     private closeSub: Subscription;
+    private storeSub: Subscription;
 
     constructor(private authService: AuthService, private router: Router, private componentFactory: ComponentFactoryResolver, private store: Store<fromApp.AppState>){}
 
@@ -25,7 +26,7 @@ export class AuthComponent implements OnInit,OnDestroy {
     error: string = null;
 
     ngOnInit(){
-        this.store.select('auth').subscribe(authState => {
+        this.storeSub = this.store.select('auth').subscribe(authState => {
             this.isLoading = authState.loading;
             this.error = authState.authError;
             if(this.error){
@@ -39,7 +40,8 @@ export class AuthComponent implements OnInit,OnDestroy {
     }
 
     onHandleError(){
-        this.error = null;
+        // this.error = null;
+        this.store.dispatch(new AuthAction.ClearError());
     }
 
     onSubmit(form: NgForm){
@@ -91,5 +93,6 @@ export class AuthComponent implements OnInit,OnDestroy {
         if(this.closeSub){
             this.closeSub.unsubscribe();
         }
+        this.storeSub.unsubscribe();
     }
 }
