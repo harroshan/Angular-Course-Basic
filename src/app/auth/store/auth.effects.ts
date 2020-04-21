@@ -69,7 +69,7 @@ export class AuthEffects {
     authLogin = this.actions$.pipe(
         ofType(AuthAction.LOGIN_START),
         switchMap((authData: AuthAction.LoginStart) => {
-            return this.http.post<AuthResponse>("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + environment.firebaseAPIKey,
+            return this.http.post<AuthResponse>("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + environment.firebaseAPIKey,
                 {
                     email: authData.payload.email,
                     password: authData.payload.password,
@@ -81,7 +81,7 @@ export class AuthEffects {
                     }),
                     map(resData => {
                     return handleAuthentication(resData.email, resData.localId, resData.idToken, +resData.expiresIn)
-                })),
+                }))
                 catchError(errorRes => {
                     return handleError(errorRes);
                 });
