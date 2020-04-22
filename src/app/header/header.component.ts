@@ -25,7 +25,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
     constructor(private dataStorageService: DataStorageService, private authService: AuthService, private store: Store<fromApp.AppState>){}
     onSaveData(){
-        this.dataStorageService.storeRecipes();
+        // this.dataStorageService.storeRecipes();
+        this.store.dispatch(new RecipeAction.StoreRecipes());
     }
 
     ngOnInit(){
